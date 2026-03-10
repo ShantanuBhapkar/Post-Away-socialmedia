@@ -43,7 +43,9 @@ app.use((err,req,res,next)=>{
     return res.status(500).send("Something went wrong, Please try again later"); 
 
 })
-app.listen(3000 ,(req,res)=>{
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT ,(req,res)=>{
   connectDatabase();
   console.log("server is running");
 })
