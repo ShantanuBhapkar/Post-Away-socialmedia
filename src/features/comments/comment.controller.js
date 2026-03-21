@@ -12,7 +12,7 @@ export class CommentController{
             if(!comment){
                 return res.status(400).send("Comment not found");
             }else{
-                res.status(201).send(comment);
+                res.status(200).send(comment);
             }
         }catch(err){next(err)}
     }

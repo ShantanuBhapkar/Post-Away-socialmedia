@@ -8,8 +8,10 @@ export class PostController{
 
   async getAll(req,res,next){
     try{
-      const posts = await this.postRepository.getAll();
-      return res.status(201).send(posts);
+        const page = parseInt(req.query.page) || 1;
+       const limit = parseInt(req.query.limit) || 10;
+      const posts = await this.postRepository.getAll(page,limit);
+      return res.status(200).send(posts);
 
     }catch(err){
         next(err);
@@ -20,7 +22,7 @@ export class PostController{
     try{
         const postId= req.params.id;
         const post = await this.postRepository.getbyId(postId);
-        res.status(201).send(post);
+        res.status(200).send(post);
     }catch(err){
         next(err);
     }
@@ -30,7 +32,7 @@ export class PostController{
     try{
         const userId = req.userId;
         const posts = await this.postRepository.getUserPosts(userId);
-         res.status(201).send(posts);
+         res.status(200).send(posts);
 
     }catch(err){
         next(err);
@@ -55,7 +57,7 @@ export class PostController{
         const postId= req.params.postId;
         const post = await this.postRepository.deletePost(postId,req.userId);
         if(post){
-            res.status(201).send("Post Deleted");
+            res.status(200).send("Post Deleted");
         }else{
             res.status(400).send("Something went wrong");
         }

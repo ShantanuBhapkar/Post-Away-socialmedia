@@ -1,12 +1,13 @@
-import { mongoose } from "mongoose";
+import mongoose  from "mongoose";
 import { ApplicationError } from "../../errorHandlers/errorhandler.js";
 import { postModel } from "./post.schema.js";
 
 export class PostRepository{
 
-    async getAll(){
+    async getAll(page,limit){
        try{
-         return await postModel.find().populate('userId','username');
+        
+         return await postModel.find().populate('userId','username').skip((page-1)*limit).limit(limit);
 
        }catch(err){
         console.log('ERROR :'+err);
@@ -36,7 +37,7 @@ export class PostRepository{
         }catch(err){
             console.log("ERROR :"+err);
             if(err instanceof mongoose.Error.ValidationError){
-                trhrow (err);
+                throw (err);
             }else{
                 throw new ApplicationError("Something went wrong with database",500)
             }
@@ -51,7 +52,7 @@ export class PostRepository{
         }catch(err){
             console.log("ERROR :"+err);
             if(err instanceof mongoose.Error.ValidationError){
-                trhrow (err);
+                throw (err);
             }else{
                 throw new ApplicationError("Something went wrong with database",500)
             }
@@ -65,7 +66,7 @@ export class PostRepository{
         }catch(err){
             console.log("ERROR :"+err);
             if(err instanceof mongoose.Error.ValidationError){
-                trhrow (err);
+                throw (err);
             }else{
                 throw new ApplicationError("Something went wrong with database",500)
             }
@@ -83,7 +84,7 @@ export class PostRepository{
         }catch(err){
            console.log("ERROR :"+err);
             if(err instanceof mongoose.Error.ValidationError){
-                trhrow (err);
+                throw (err);
             }else{
                 throw new ApplicationError("Something went wrong with database",500)
             } 

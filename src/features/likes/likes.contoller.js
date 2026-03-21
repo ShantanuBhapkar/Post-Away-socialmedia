@@ -10,7 +10,7 @@ export class LikeController{
             const id = req.params.id;
             const likes = await this.likeRepository.getLikes(id);
             if(likes){
-                res.status(201).send(likes);
+                res.status(200).send(likes);
             }else{
                 res.status(400).send("not found");
             }

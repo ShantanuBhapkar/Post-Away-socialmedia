@@ -31,7 +31,7 @@ export class UserController{
             return res.status(400).send("Incorrect Credentials")
           }
           else{
-          const ismatch = awaitbcrypt.compare(password,user.password);
+          const ismatch = await bcrypt.compare(password,user.password);
             if(ismatch){
              const token = jwt.sign({
                 userId: user._id,
